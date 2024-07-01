@@ -3,7 +3,7 @@ pipeline{
 
     environment{
         RENDER_APP_NAME = 'gallery'
-        SLACK_CHANNEL = 'project'
+        SLACK_CHANNEL = 'kelvin_ip1'
         SLACK_CREDENTIALS_ID = 'SLACK-TOKEN-API'
         EMAIL_RECIPIENT = 'kelvinkiariek@gmail.com'
     }
