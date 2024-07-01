@@ -7,10 +7,10 @@ pipeline{
     stages {
         stage('clone repository'){
             steps {
-                git url: "https://github.com/kelvin-kk/gallery", branch: "master"
+                git url: "https://github.com/kelvin-kk/gallery.git", branch: "master"
             }
         }
-        stage('Build ') {
+        stage('Build') {
             steps {
                 sh 'npm install'
             }
