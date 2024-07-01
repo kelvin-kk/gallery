@@ -1,14 +1,14 @@
-pipeline{
+pipeline {
     agent any
 
-    environment{
+    environment {
         RENDER_APP_NAME = 'gallery'
         SLACK_CHANNEL = 'kelvin_ip1'
         SLACK_CREDENTIALS_ID = 'SLACK-TOKEN-API'
         EMAIL_RECIPIENT = 'kelvinkiariek@gmail.com'
     }
 
-    tools{
+    tools {
         nodejs "nodejs"
     }
 
@@ -17,7 +17,7 @@ pipeline{
     }
 
     stages {
-        stage('clone repository'){
+        stage('clone repository') {
             steps {
                 git branch: 'master', url: 'https://github.com/kelvin-kk/gallery'
             }
@@ -57,21 +57,37 @@ pipeline{
                 }
             }
         }
-
-
     }
     
     post {
-            success {
-                echo "Pipeline ran successfully"
-                slackSend (
-                    channel: "${SLACK_CHANNEL}", 
-                    color: 'good', 
-                    message: "Pipeline ran successfully: ${env.JOB_NAME} ${env.BUILD_NUMBER}. Access app on https://gallery-6aro.onrender.com/"
-                )
-            }
-            failure {
-                echo "Pipeline failed"
+        success {
+            echo "Pipeline ran successfully"
+            slackSend (
+                channel: "${SLACK_CHANNEL}", 
+                color: 'good', 
+                message: "Pipeline ran successfully: ${env.JOB_NAME} ${env.BUILD_NUMBER}. Access app on https://gallery-6aro.onrender.com/"
+            )
+        }
+
+        failure {
+            echo "Pipeline failed"
+            slackSend (
+                channel: "${SLACK_CHANNEL}", 
+                color: 'danger', 
+                message: "Pipeline failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+            )
+        }
+
+        always {
+            script {
+                if (currentBuild.result == 'FAILURE') {
+                    emailext (
+                        to: "${EMAIL_RECIPIENT}",
+                        subject: "Jenkins Pipeline Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                        body: "<p>Jenkins console output : ${env.BUILD_URL}</p>"
+                    )
+                }
             }
         }
     }
+}
