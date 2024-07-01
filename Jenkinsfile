@@ -16,7 +16,13 @@ pipeline{
                 sh 'npm run'
             }
         }
-
+        stage('Test'){
+            steps{
+                echo 'Testing the project'{
+                    sh 'npm test'
+                }
+            }
+        }
     }
     post {
             success {
