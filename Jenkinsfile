@@ -13,7 +13,7 @@ pipeline{
     }
 
     triggers {
-        pollSCM('H/2 ')
+        pollSCM('0 */4 * * 1-5')
     }
 
     stages {
