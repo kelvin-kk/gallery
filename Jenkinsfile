@@ -19,7 +19,7 @@ pipeline{
     stages {
         stage('clone repository'){
             steps {
-                git branch: 'master', url: 'https://github.com/kelvin-kk/gallery', 
+                git branch: 'master', url: 'https://github.com/kelvin-kk/gallery'
             }
         }
 
