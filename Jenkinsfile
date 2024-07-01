@@ -7,12 +7,12 @@ pipeline{
     stages {
         stage('clone repository'){
             steps {
-                git 'https://github.com/kelvin-kk/gallery.git'
+                git url: "https://github.com/kelvin-kk/gallery", branch: "master"
             }
         }
         stage('Build ') {
             steps {
-                    npm install 
+                sh 'npm install'
             }
         }
         stage('Test'){
@@ -25,10 +25,10 @@ pipeline{
     }
     post {
             success {
-                slackSend color: "good", message: "Build #${BUILD_NUMBER} ran successfully"
+                slackSend color: "good", message: "Pipeline ran successfully"
             }
             failure {
-                slackSend color: "danger", message: "Build #${BUILD_NUMBER} failed"
+                slackSend color: "danger", message: "Pipeline failed"
             }
         }
     }
