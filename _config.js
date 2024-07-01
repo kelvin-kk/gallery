@@ -7,3 +7,5 @@ config.mongoURI = {
     test: 'mongodb+srv://kelvin:kiarie09@moringagallery.3dbzfuq.mongodb.net/?retryWrites=true&w=majority&appName=MoringaGallery',
 }
 module.exports = config;
+
+//test
