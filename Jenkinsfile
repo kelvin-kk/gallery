@@ -25,10 +25,10 @@ pipeline{
     }
     post {
             success {
-                slackSend color: "good", message: "Pipeline ran successfully"
+                echo "Pipeline ran successfully"
             }
             failure {
-                slackSend color: "danger", message: "Pipeline failed"
+                echo "Pipeline failed"
             }
         }
     }
