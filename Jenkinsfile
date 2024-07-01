@@ -64,6 +64,11 @@ pipeline{
     post {
             success {
                 echo "Pipeline ran successfully"
+                slackSend (
+                    channel: "${SLACK_CHANNEL}", 
+                    color: 'good', 
+                    message: "Pipeline ran successfully: ${env.JOB_NAME} ${env.BUILD_NUMBER}. Access app on https://gallery-6aro.onrender.com/"
+                )
             }
             failure {
                 echo "Pipeline failed"
